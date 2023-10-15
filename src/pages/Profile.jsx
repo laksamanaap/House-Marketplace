@@ -5,13 +5,13 @@ import { getAuth } from "../firebase.config";
 function Profile() {
   const auth = getAuth;
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
-    console.log(auth.currentUser);
+    setUser(auth.currentUser);
   }, []);
 
-  return <div>Profile</div>;
+  return <div>{user ? <h1>{user.displayName}</h1> : "not logged in"}</div>;
 }
 
 export default Profile;
