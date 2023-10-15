@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilyIcon from "../assets/svg/visibilityIcon.svg";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -54,7 +56,41 @@ function SignIn() {
       navigate("/");
     } catch (err) {
       console.error(err);
-      setError(err);
+      // setError(err);
+      if (password.length < 6) {
+        return toast.error("Password must be at least 6 characters", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else if (name === null || email === null) {
+        return toast.error("Name or email cannot be empty!", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("Check your email or password correctly!", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
   };
 
@@ -93,11 +129,7 @@ function SignIn() {
                 value={password}
                 onChange={OnChangeData}
               />
-              {err && (
-                <p style={{ color: "#ff0000", marginTop: "unset" }}>
-                  Password should be at least 6 characters!
-                </p>
-              )}
+
               <img
                 src={visibilyIcon}
                 alt="ShowPassword"
@@ -105,7 +137,6 @@ function SignIn() {
                 onClick={() => setShowPassword((prevState) => !prevState)}
               />
             </div>
-
             <Link to="/forgot-password" className="forgotPasswordLink">
               Forgot Password
             </Link>
