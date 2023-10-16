@@ -5,6 +5,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function Profile() {
   const auth = getAuth;
@@ -38,8 +39,18 @@ function Profile() {
           name,
         });
       }
-    } catch (error) {
+    } catch (err) {
       console.log(err);
+      toast.error("Error Updating data!", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
