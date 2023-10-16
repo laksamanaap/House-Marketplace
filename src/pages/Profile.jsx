@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getAuth } from "../firebase.config";
+import { getAuth, updateProfile } from "../firebase.config";
+import { updateDoc } from "firebase/firestore";
+import { db } from "../firebase.config";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
