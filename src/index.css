@@ -654,6 +654,11 @@ button {
   max-width: 500px;
 }
 
+.profileCardItem {
+  margin-top: 12px;
+  margin: 8px;
+}
+
 .profileDetails {
   display: flex;
   flex-direction: column;
@@ -671,6 +676,7 @@ button {
   width: 95%;
   border-radius: 8px;
   padding: 8px;
+  background-color: rgb(44 44 44 / 5%);
 }
 .profileNameActive {
   background-color: rgba(44, 44, 44, 0.1);

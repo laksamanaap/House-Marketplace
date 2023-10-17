@@ -87,22 +87,34 @@ function Profile() {
 
         <div className="profileCard">
           <form>
-            <input
-              type="text"
-              id="name"
-              className={!changeDetails ? "profileName" : "profileNameActive"}
-              disabled={!changeDetails}
-              value={name}
-              onChange={onChangeData}
-            />
-            <input
-              type="email"
-              id="email"
-              className={!changeDetails ? "profileEmail" : "profileEmailActive"}
-              disabled={!changeDetails}
-              value={email}
-              onChange={onChangeData}
-            />
+            <div className="profileCardItem">
+              <label htmlFor="name">
+                Name <span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                className={!changeDetails ? "profileName" : "profileNameActive"}
+                disabled={!changeDetails}
+                value={name}
+                onChange={onChangeData}
+              />
+            </div>
+            <div className="profileCardItem">
+              <label htmlFor="email">
+                Email <span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                className={
+                  !changeDetails ? "profileEmail" : "profileEmailActive"
+                }
+                disabled={!changeDetails}
+                value={email}
+                onChange={onChangeData}
+              />
+            </div>
           </form>
         </div>
       </main>

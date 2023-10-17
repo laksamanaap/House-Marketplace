@@ -11,8 +11,8 @@ import SignUp from "./pages/SignUp";
 import { getAuth } from "firebase/auth";
 
 function App() {
-  const auth = getAuth();
-  console.log(auth);
+  // const auth = getAuth();
+  // console.log(auth);
   return (
     <>
       <Router>
