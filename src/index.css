@@ -676,7 +676,7 @@ button {
   width: 95%;
   border-radius: 8px;
   padding: 8px;
-  background-color: rgb(44 44 44 / 5%);
+  background-color: rgb(44 44 44 / 4%);
 }
 .profileNameActive {
   background-color: rgba(44, 44, 44, 0.1);
