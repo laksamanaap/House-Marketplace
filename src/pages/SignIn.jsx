@@ -109,6 +109,8 @@ function SignUp() {
             </div>
           </form>
 
+          <OAuth />
+
           <Link to={"/sign-up"} className="registerLink">
             Sign Up Here Instead
           </Link>
