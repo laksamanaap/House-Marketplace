@@ -6,6 +6,7 @@ import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRig
 import visibilyIcon from "../assets/svg/visibilityIcon.svg";
 import { getAuth } from "../firebase.config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import OAuth from "../components/OAuth";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
