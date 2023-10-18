@@ -403,6 +403,7 @@ button {
 
 .categoryListings {
   padding: 0;
+  cursor: pointer;
 }
 
 .categoryListing {
@@ -411,6 +412,7 @@ button {
   align-items: center;
   margin-bottom: 1rem;
   position: relative;
+  cursor: pointer;
 }
 
 .categoryListingLink {
