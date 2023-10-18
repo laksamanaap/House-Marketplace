@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { getAuth } from "../firebase.config";
+import { updateEmail, sendEmailVerification } from "firebase/auth";
 import { updateDoc, doc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
@@ -29,18 +30,26 @@ function Profile() {
 
   const { name, email } = formData;
 
+  console.log(auth.currentUser.email);
+
+  const actionCodeSettings = {
+    url: "https://housemarketplace-3713b.firebaseapp.com", // Sesuaikan dengan URL Anda
+    handleCodeInApp: true,
+  };
   const onSubmitData = async () => {
     try {
-      if (auth.currentUser.displayName !== name) {
-        await updateProfile(auth.currentUser, {
-          displayName: name,
-        });
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+      });
 
-        const userRef = doc(db, "users", auth.currentUser.uid);
-        await updateDoc(userRef, {
-          name,
-        });
-      }
+      await sendEmailVerification(auth.currentUser, actionCodeSettings);
+      await updateEmail(auth.currentUser, email);
+
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      await updateDoc(userRef, {
+        name,
+        email,
+      });
     } catch (err) {
       console.log(err);
       toast.error("Error Updating data!", {
