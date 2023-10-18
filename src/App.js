@@ -8,7 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import { getAuth } from "firebase/auth";
+import Category from "./pages/Category";
 
 function App() {
   // const auth = getAuth();
@@ -20,6 +20,7 @@ function App() {
           <Route path="/" element={<Explore />}></Route>
           <Route path="/home" element={<Explore />}></Route>
           <Route path="/offers" element={<Offers />}></Route>
+          <Route path="/category/:categoryName" element={<Category />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />}></Route>
