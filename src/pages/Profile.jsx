@@ -4,8 +4,10 @@ import { getAuth } from "../firebase.config";
 import { updateDoc, doc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg";
+import homeIcon from "../assets/svg/homeIcon.svg";
 
 function Profile() {
   const auth = getAuth;
@@ -62,6 +64,8 @@ function Profile() {
     }));
   };
 
+  const dummyPhoneNumber = 6281232345678;
+
   return (
     <div className="profile">
       <header className="profileHeader">
@@ -115,8 +119,27 @@ function Profile() {
                 onChange={onChangeData}
               />
             </div>
+            <div className="profileCardItem">
+              <label htmlFor="phoneNumber">
+                Phone Number <span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                type="number"
+                id="phoneNumber"
+                className={
+                  !changeDetails ? "profileEmail" : "profileEmailActive"
+                }
+                disabled={!changeDetails}
+                value={dummyPhoneNumber}
+              />
+            </div>
           </form>
         </div>
+        <Link to="/create-listing" className="createListing">
+          <img src={homeIcon} alt="HOME" />
+          <p>Sell or rent home</p>
+          <img src={arrowRight} alt="" />
+        </Link>
       </main>
     </div>
   );
