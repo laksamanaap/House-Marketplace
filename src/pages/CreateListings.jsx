@@ -99,6 +99,7 @@ function CreateListings() {
     let location;
 
     if (getLocation) {
+      // Marked Updated w geolocation API (Need to get VISA Card to try it)
       console.log(
         "cant get geolocation API services cause doesnt have credit card to try it for free"
       );
