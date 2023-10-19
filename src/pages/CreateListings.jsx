@@ -100,12 +100,13 @@ function CreateListings() {
 
     if (getLocation) {
       console.log(
-        "cant get geolocation API cause doesnt have credit card to try it for free"
+        "cant get geolocation API services cause doesnt have credit card to try it for free"
       );
     } else {
       getlocation.lat = latitude;
       getlocation.lng = longitude;
       location = address;
+      console.log(getlocation, location);
     }
   };
 
