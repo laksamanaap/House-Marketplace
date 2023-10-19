@@ -30,7 +30,7 @@ function Profile() {
 
   const { name, email } = formData;
 
-  console.log(auth.currentUser.email);
+  console.log(auth.currentUser);
 
   const actionCodeSettings = {
     url: "https://housemarketplace-3713b.firebaseapp.com", // Sesuaikan dengan URL Anda
@@ -41,9 +41,6 @@ function Profile() {
       await updateProfile(auth.currentUser, {
         displayName: name,
       });
-
-      await sendEmailVerification(auth.currentUser, actionCodeSettings);
-      await updateEmail(auth.currentUser, email);
 
       const userRef = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userRef, {

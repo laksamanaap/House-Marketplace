@@ -761,6 +761,11 @@ button {
   display: flex;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .formInput,
 .formInputAddress,
 .formInputName,
@@ -818,7 +823,7 @@ button {
 }
 
 .createListingButton {
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 .offers {
@@ -833,4 +838,14 @@ button {
   margin-left: 1rem;
   font-size: 0.8rem;
   opacity: 0.75;
+}
+
+.bannerGeolocation {
+  display: none;
+  padding: 8px;
+  background-color: #a4e9c6;
+  color: black;
+  border-radius: 8px;
+  border: 1px solid #00cc66;
+  margin-top: 8px;
 }
