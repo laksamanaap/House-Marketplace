@@ -149,19 +149,21 @@ function CreateListings() {
           () => {
             // Handle successful uploads on complete
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              resolve("File available at", downloadURL);
+              resolve(downloadURL);
             });
           }
         );
       });
     };
 
+    // Store images array
     const imgUrls = await Promise.all(
       [...images].map((image) => storeImage(image))
     );
 
     console.log(imgUrls);
 
+    // console.log(storeImage(images[0]));
     setLoading(false);
   };
 
