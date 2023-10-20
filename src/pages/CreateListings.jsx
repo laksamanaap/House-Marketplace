@@ -3,6 +3,13 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { db } from "../firebase.config";
 
 function CreateListings() {
   const [getLocation, setGetLocation] = useState(false);
@@ -18,7 +25,7 @@ function CreateListings() {
     address: "",
     regularPrice: 0,
     discountedPrice: 0,
-    image: {},
+    images: {},
     latitude: 0, // Optional
     longitude: 0, // Optional
   });
@@ -34,7 +41,7 @@ function CreateListings() {
     regularPrice,
     discountedPrice,
     offer,
-    image,
+    images,
     latitude,
     longitude,
   } = formData;
@@ -60,7 +67,7 @@ function CreateListings() {
     };
   }, [isMounted]);
 
-  const onSubmitData = (e) => {
+  const onSubmitData = async (e) => {
     e.preventDefault();
     console.log(formData);
 
@@ -109,6 +116,53 @@ function CreateListings() {
       location = address;
       console.log(getlocation, location);
     }
+
+    // Store Image to firebase storage
+    const storeImage = async (image) => {
+      return new Promise((resolve, reject) => {
+        const storage = getStorage();
+
+        const fileName = `${auth.currentUser.uid}-${image.name}`;
+        const storageRef = ref(storage, "images/" + fileName);
+
+        const uploadTask = uploadBytesResumable(storageRef, image);
+
+        // Base on docs
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+            }
+          },
+          (err) => {
+            reject(err);
+          },
+          () => {
+            // Handle successful uploads on complete
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              resolve("File available at", downloadURL);
+            });
+          }
+        );
+      });
+    };
+
+    const imgUrls = await Promise.all(
+      [...images].map((image) => storeImage(image))
+    );
+
+    console.log(imgUrls);
+
+    setLoading(false);
   };
 
   const onMutate = (e) => {
@@ -127,7 +181,7 @@ function CreateListings() {
     if (e.target.files) {
       setFormData((prevState) => ({
         ...prevState,
-        image: e.target.files,
+        images: e.target.files,
       }));
     }
 
