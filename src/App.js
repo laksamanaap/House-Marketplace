@@ -10,7 +10,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Category from "./pages/Category";
 import CreateListings from "./pages/CreateListings";
-
+import Listing from "./pages/Listing";
 function App() {
   // const auth = getAuth();
   // console.log(auth);
@@ -30,6 +30,10 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/create-listing" element={<CreateListings />} />
+          <Route
+            path="/category/:categoryName/:listingId"
+            element={<Listing />}
+          />
         </Routes>
         <Navbar />
       </Router>
