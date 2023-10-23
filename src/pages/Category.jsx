@@ -48,6 +48,8 @@ function Category() {
           });
         });
 
+        // console.log(listings);
+
         setListings(listings);
         setLoading(false);
       } catch (err) {
