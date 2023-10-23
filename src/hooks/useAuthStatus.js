@@ -12,7 +12,7 @@ export const useAuthStatus = () => {
       if (user) {
         setIsLoggedIn(true);
       } else {
-        console.error("An error occured when fetch user data");
+        console.log("An error occured when fetch user data");
       }
       setCheckingStatus(false);
     });

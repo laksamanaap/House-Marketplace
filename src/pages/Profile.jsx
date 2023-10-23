@@ -45,7 +45,6 @@ function Profile() {
       const userRef = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userRef, {
         name,
-        email,
       });
     } catch (err) {
       console.log(err);

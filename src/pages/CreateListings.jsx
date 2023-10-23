@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import Spinner from "../components/Spinner";
 import {
   getStorage,
@@ -51,6 +52,7 @@ function CreateListings() {
   // Handle mounted mount in console.log
   const isMounted = useRef(true);
 
+  // Handle mounted component error
   useEffect(() => {
     if (isMounted) {
       onAuthStateChanged(auth, (user) => {
@@ -73,7 +75,13 @@ function CreateListings() {
 
     setLoading(true);
 
-    if (discountedPrice >= regularPrice) {
+    const discountedPriceNumber = parseFloat(discountedPrice);
+    const regularPriceNumber = parseFloat(regularPrice);
+
+    // console.log("Discounted Price:", discountedPriceNumber);
+    // console.log("Regular Price:", regularPriceNumber);
+
+    if (discountedPriceNumber >= regularPriceNumber) {
       setLoading(false);
       toast.error("Discounted price needs to be less than regular price", {
         position: "top-center",
@@ -161,15 +169,47 @@ function CreateListings() {
       [...images].map((image) => storeImage(image))
     );
 
-    console.log(imgUrls);
+    // console.log(imgUrls);
+    const formDataCopy = {
+      ...formData,
+      imgUrls,
+      timestamp: serverTimestamp(),
+      // geolocation,
+    };
+
+    // Filtering what to send to firestore
+    // delete formDataCopy.images;
+    // delete formDataCopy.address;
+    // location && (formDataCopy.location = location);
+    // !formDataCopy.offer && delete formDataCopy.discountedPrice;
+
+    delete formDataCopy.images;
+    formDataCopy.location = address;
+    delete formDataCopy.address;
+    !formDataCopy.offer && delete formDataCopy.discountedPrice;
+
+    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
 
     // console.log(storeImage(images[0]));
     setLoading(false);
+
+    toast.success("Listing created", {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   };
 
   const onMutate = (e) => {
     let boolean = null;
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     if (e.target.value === "true") {
       boolean = true;
