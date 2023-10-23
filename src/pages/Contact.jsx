@@ -14,6 +14,9 @@ function Contact() {
   const [landlord, setLandLord] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const listingName = searchParams.get("listingName");
+  const subject = `${listingName} - Roemah House Marketplace`;
+
   const params = useParams();
 
   const onChangeData = (e) => {
@@ -62,8 +65,8 @@ function Contact() {
             </div>
 
             <a
-              href={`mailto:${landlord.email}?Subject=${searchParams.get(
-                "listingName"
+              href={`mailto:${landlord.email}?Subject=${encodeURIComponent(
+                subject
               )}&body=${message}`}
             >
               <button type="button" className="primaryButton">
