@@ -331,8 +331,14 @@ button {
   height: 23vw;
 }
 
+.swiper-pagination-bullet {
+  background-color: #53ff53 !important;
+  opacity: .3 !important;
+}
+
 .swiper-pagination-bullet-active {
-  background-color: #ffffff !important;
+  background-color: #21ff21 !important;
+  opacity: 1 !important;
 }
 
 .swiperSlideDiv {
@@ -342,6 +348,11 @@ button {
   object-fit: cover;
   object-position: center;
   max-height: 220px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #53ff53 !important;
 }
 
 .swiperSlideImg {
