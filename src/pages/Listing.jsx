@@ -1,21 +1,19 @@
 import React from "react";
+import BlurPlaceholderImage from "../assets/jpg/placeholder.png";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, collectionGroup } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  limit,
-  startAt,
-} from "firebase/firestore";
 import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
+import SwiperCore from "swiper";
+import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+SwiperCore.use([Navigation, Pagination, EffectFade]);
+import "swiper/css";
+import "swiper/swiper-bundle.css";
 
 function Listing() {
   const [listing, setListing] = useState(null);
@@ -41,14 +39,38 @@ function Listing() {
     fetchListing();
   }, [navigate, params.listingId]);
 
-  console.log(listing);
+  // console.log(listing?.imgUrls);
 
   if (loading) {
     return <Spinner />;
   } else {
     return (
       <main>
-        
+        {listing?.imgUrls?.length > 0 ? (
+          <Swiper
+            slidesPerView={1}
+            pagination={{ clickable: true }}
+            modules={[EffectFade, Navigation, Pagination]}
+            effect={"fade"}
+            navigation={true}
+          >
+            {listing?.imgUrls?.map((url, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  className="swiperSlideDiv"
+                  alt={`image-${url}-${index}`}
+                  src={url}
+                ></img>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <img
+            src={BlurPlaceholderImage}
+            className="swiperSlideDiv"
+            alt="placeholderImg"
+          ></img>
+        )}
 
         <div
           className="shareIconDiv"
