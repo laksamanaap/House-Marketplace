@@ -53,7 +53,7 @@ function Category() {
         setListings(listings);
         setLoading(false);
       } catch (err) {
-        console.log(err.messahe);
+        console.log(err.message);
         toast.error("An errror occured, Category not found", {
           position: "top-center",
           autoClose: 4000,

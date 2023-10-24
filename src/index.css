@@ -348,6 +348,11 @@ button {
   object-fit: cover;
   object-position: center;
   max-height: 220px;
+
+}
+
+img.swiperSlideDiv--explore {
+  border-radius: 1.5rem !important;
 }
 
 .swiper-button-prev,
@@ -392,6 +397,10 @@ button {
   .swiperSlidePrice {
     font-size: 1.25rem;
   }
+}
+
+.explore {
+  height: 100vh;
 }
 
 .exploreCategories {
@@ -525,6 +534,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 
 .listingName {
