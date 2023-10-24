@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import {
   collection,
   getDocs,
@@ -40,11 +41,15 @@ function Listing() {
     fetchListing();
   }, [navigate, params.listingId]);
 
+  console.log(listing);
+
   if (loading) {
     return <Spinner />;
   } else {
     return (
       <main>
+        
+
         <div
           className="shareIconDiv"
           onClick={() => {
@@ -97,8 +102,26 @@ function Listing() {
           </ul>
 
           <p className="listingLocationTitle">Location</p>
-
-          {/* MAP*/}
+          <div className="leafletContainer">
+            {listing && listing.latitude && listing.longitude ? (
+              <MapContainer
+                center={[listing.latitude, listing.longitude]}
+                zoom={13}
+                scrollWheelZoom={false}
+                style={{ height: "100%", width: "100%" }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[listing.latitude, listing.longitude]}>
+                  <Popup>{listing.location}</Popup>
+                </Marker>
+              </MapContainer>
+            ) : (
+              <p>Location information is not available for this listing.</p>
+            )}
+          </div>
 
           {auth.currentUser?.uid !== listing?.userRef && (
             <Link

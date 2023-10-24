@@ -23,12 +23,13 @@ function CreateListings() {
     parking: false,
     furnished: false,
     offer: false,
-    address: "",
+    address:
+      "Pakuwon City, Desa/Dusun/Kelurahan Mulyorejo, Surabaya, Jawa Timur 60112 Mulyorejo Surabaya Jawa Timur Indonesia",
     regularPrice: 0,
     discountedPrice: 0,
     images: {},
-    latitude: 0, // Optional
-    longitude: 0, // Optional
+    latitude: -7.27194, // Optional
+    longitude: 112.805428, // Optional
   });
 
   const {
@@ -250,9 +251,9 @@ function CreateListings() {
           <div className="formButtons">
             <button
               type="button"
-              className={type === "sell" ? "formButtonActive" : "formButton"}
+              className={type === "sale" ? "formButtonActive" : "formButton"}
               id="type"
-              value="sell"
+              value="sale"
               onClick={onMutate}
             >
               Sell
