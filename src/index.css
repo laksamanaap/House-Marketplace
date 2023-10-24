@@ -7,12 +7,17 @@ html::-webkit-scrollbar {
   display: none;
 }
 
+main {
+  height: 100vh;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #f2f4f8;
   margin: 0;
   box-sizing: border-box;
 }
+
 
 a {
   text-decoration: none;
