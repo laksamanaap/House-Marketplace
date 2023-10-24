@@ -93,6 +93,11 @@ button {
 .explore {
   margin: 1rem;
 }
+
+.pageContainer {
+  height: 100vh;
+}
+
 @media (min-width: 1024px) {
   .pageContainer,
   .offers,

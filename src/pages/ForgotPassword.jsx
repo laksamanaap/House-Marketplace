@@ -52,11 +52,11 @@ const ForgotPassword = () => {
           <input
             type="email"
             className="emailInput"
-            placeholder="Email"
+            placeholder="Account Current Email"
             value={email}
             onChange={onChangeData}
           />
-          <Link className="forgotPasswordLink" to={"sign/in"}>
+          <Link className="forgotPasswordLink" to={"/sign-in"}>
             Sign In
           </Link>
 
