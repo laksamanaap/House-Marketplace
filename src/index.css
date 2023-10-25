@@ -96,10 +96,13 @@ button {
     border-radius: 4px;
 }
 .editIcon {
-  cursor: pointer;
-  position: absolute;
-  top: -3.4%;
-  right: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    left: 10px;
+    background: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 4px;
 }
 
 .pageContainer,

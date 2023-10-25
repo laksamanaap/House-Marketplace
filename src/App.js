@@ -12,6 +12,7 @@ import Category from "./pages/Category";
 import CreateListings from "./pages/CreateListings";
 import Listing from "./pages/Listing";
 import Contact from "./pages/Contact";
+import EditListings from "./pages/EditListing";
 function App() {
   // const auth = getAuth();
   // console.log(auth);
@@ -31,6 +32,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/create-listing" element={<CreateListings />} />
+          <Route path="/edit-listing/:listingId" element={<EditListings />} />
           <Route
             path="/category/:categoryName/:listingId"
             element={<Listing />}

@@ -159,7 +159,8 @@ function Profile() {
     }
   };
 
-  console.log(listings);
+  // On edit uset listings
+  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`);
 
   const dummyPhoneNumber = 6281232345678;
 
@@ -251,6 +252,7 @@ function Profile() {
                     key={listing.id}
                     listing={listing.data}
                     onDelete={() => onDelete(listing.id)}
+                    onEdit={() => onEdit(listing.id)}
                   />
                 ))}
               </ul>
