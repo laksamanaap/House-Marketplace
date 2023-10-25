@@ -10,7 +10,7 @@ function Explore() {
       <header>
         <p className="pageHeader">Explore</p>
       </header>
-      <main>
+      <main className="exploreMain">
         {/* Slider */}
         <Slider />
 

@@ -4,12 +4,8 @@ import SpinnerLoop from "../assets/InfinityLoop.svg";
 
 function Loading() {
   return (
-    <div className="flex justify-center w-100 mt-20">
-      <img
-        className="flex justify-center w-100 mx-auto"
-        src={SpinnerLoop}
-        alt="Spinner"
-      />
+    <div className="spinner">
+      <img className="spinner-image" src={SpinnerLoop} alt="Spinner" />
     </div>
   );
 }

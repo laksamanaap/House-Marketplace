@@ -2,19 +2,32 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { getAuth } from "../firebase.config";
 import { updateEmail, sendEmailVerification } from "firebase/auth";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
+  startAt,
+} from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg";
 import homeIcon from "../assets/svg/homeIcon.svg";
+import ListingItem from "../components/ListingItem";
+import Spinner from "../components/Spinner";
 
 function Profile() {
   const auth = getAuth;
   const navigate = useNavigate();
 
   const [changeDetails, setChangeDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState(null);
 
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
@@ -22,21 +35,61 @@ function Profile() {
   });
 
   const onLogout = () => {
-    console.log("logouted!");
     auth.signOut();
-
     navigate("/");
   };
 
   const { name, email } = formData;
 
-  console.log(auth.currentUser);
+  useEffect(() => {
+    const fetchUserListings = async () => {
+      try {
+        const userListingRef = collection(db, "listings");
 
-  const actionCodeSettings = {
-    url: "https://housemarketplace-3713b.firebaseapp.com", // Sesuaikan dengan URL Anda
-    handleCodeInApp: true,
-  };
+        const q = query(
+          userListingRef,
+          where(
+            "userRef",
+            "==",
+            auth.currentUser.uid,
+            orderBy("timestamp", "desc") // Newest listings
+          )
+        );
+
+        const docSnap = await getDocs(q);
+
+        let listings = [];
+
+        docSnap.forEach((doc) => {
+          return listings.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+
+        // console.log(listings);
+        setListings(listings);
+      } catch (err) {
+        console.log(err);
+        toast.error("Could not fetch listings", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    };
+
+    fetchUserListings();
+    setLoading(false);
+  }, []);
+
   const onSubmitData = async () => {
+    // Update Profile
     try {
       await updateProfile(auth.currentUser, {
         displayName: name,
@@ -61,6 +114,7 @@ function Profile() {
     }
   };
 
+  // Try to get what users type in
   const onChangeData = (e) => {
     e.preventDefault();
     setFormData((prevState) => ({
@@ -68,6 +122,44 @@ function Profile() {
       [e.target.id]: e.target.value,
     }));
   };
+
+  // On delete user listings
+  const onDelete = async (listingId) => {
+    if (window.confirm("Are you sure want to delete?")) {
+      try {
+        await deleteDoc(doc(db, "listings", listingId));
+        const updatedtListing = listings.filter(
+          (listing) => listing.id !== listingId
+        );
+        setListings(updatedtListing);
+        toast.success("Listings deleted successfully!", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+        toast.error("Error deleting listings!", {
+          position: "top-center",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
+  };
+
+  console.log(listings);
 
   const dummyPhoneNumber = 6281232345678;
 
@@ -145,6 +237,26 @@ function Profile() {
           <p>Sell or rent home</p>
           <img src={arrowRight} alt="" />
         </Link>
+
+        <p className="listingText">Your Current Listings</p>
+        {loading ? (
+          <Spinner />
+        ) : (
+          listings?.length > 0 && (
+            <>
+              <ul className="listingsList">
+                {listings?.map((listing) => (
+                  <ListingItem
+                    id={listing.id}
+                    key={listing.id}
+                    listing={listing.data}
+                    onDelete={() => onDelete(listing.id)}
+                  />
+                ))}
+              </ul>
+            </>
+          )
+        )}
       </main>
     </div>
   );

@@ -37,7 +37,7 @@ function Offers() {
         const listings = [];
 
         querySnap.forEach((listing) => {
-          console.log(listing.data());
+          // console.log(listing.data());
           //   console.log(listing);
           return listings.push({
             id: listing.id,

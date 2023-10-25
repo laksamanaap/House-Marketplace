@@ -7,9 +7,7 @@ html::-webkit-scrollbar {
   display: none;
 }
 
-main {
-  height: 100vh;
-}
+
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -28,6 +26,17 @@ a {
 button {
   outline: none;
   border: none;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-image {
+  width: 100%;
+  max-width: 220px;
 }
 
 .input,
@@ -78,10 +87,13 @@ button {
 }
 
 .removeIcon {
-  cursor: pointer;
-  position: absolute;
-  top: -3%;
-  right: -2%;
+    cursor: pointer;
+    position: absolute;
+    top: 15%;
+    left: 10px;
+    background: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 4px;
 }
 .editIcon {
   cursor: pointer;
@@ -408,6 +420,10 @@ img.swiperSlideDiv--explore {
   height: 100vh;
 }
 
+.exploreMain {
+  height: 100vh;
+}
+
 .exploreCategories {
   display: flex;
   justify-content: space-between;
@@ -439,6 +455,10 @@ img.swiperSlideDiv--explore {
   cursor: pointer;
 }
 
+.listingsList {
+  padding-left: 0;
+}
+
 .categoryListing {
   display: flex;
   justify-content: space-between;
@@ -466,12 +486,21 @@ img.swiperSlideDiv--explore {
 }
 
 .categoryListingDetails {
+  
   width: 65%;
 }
 @media (min-width: 1024px) {
   .categoryListingDetails {
     width: 79%;
   }
+}
+
+
+.categoryListingLocation,
+.categoryListingName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .categoryListingLocation {
@@ -524,6 +553,7 @@ img.swiperSlideDiv--explore {
 
 .listingDetails {
   margin-bottom: 10rem;
+  height: 100vh;
 }
 
 .shareIconDiv {
@@ -753,6 +783,7 @@ img.swiperSlideDiv--explore {
 .listingText {
   margin-top: 3rem;
   font-weight: 600;
+  font-size: 20px;
 }
 
 .lisitingsList {
