@@ -12,8 +12,7 @@ function Explore() {
       </header>
       <main className="exploreMain">
         {/* Slider */}
-        <Slider />
-
+        <Slider /> 
         <p className="exploreCategoryHeading">Categories</p>
         <div className="exploreCategories">
           <Link to="/category/rent">

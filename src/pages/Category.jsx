@@ -9,6 +9,7 @@ import {
   orderBy,
   limit,
   startAt,
+  startAfter,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
@@ -18,6 +19,7 @@ import ListingItem from "../components/ListingItem";
 function Category() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [lastFetched, setLastFetched] = useState(null);
 
   const params = useParams();
   console.log("Categories : ", params.categoryName);
@@ -31,11 +33,15 @@ function Category() {
           listingsRef,
           where("type", "==", params.categoryName),
           orderBy("timestamp", "desc"),
-          limit(10)
+          limit(3)
         );
 
         // execute query
         const querySnap = await getDocs(q);
+
+        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+        setLastFetched(lastVisible);
+        // console.log(querySnap.docs.length - 1);
 
         const listings = [];
 
@@ -70,6 +76,57 @@ function Category() {
     fetchListing();
   }, [params.categoryName]);
 
+  // Load more Pagination
+  const fetchLastListing = async () => {
+    try {
+      // get listing from firebase
+      const listingsRef = collection(db, "listings");
+      const q = query(
+        listingsRef,
+        where("type", "==", params.categoryName),
+        orderBy("timestamp", "desc"),
+        limit(3),
+        startAfter(lastFetched)
+      );
+
+      // execute query
+      const querySnap = await getDocs(q);
+
+      // pagination
+      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+      setLastFetched(lastVisible);
+      // console.log(querySnap.docs.length - 1);
+
+      const listings = [];
+
+      querySnap.forEach((listing) => {
+        console.log(listing.data());
+        //   console.log(listing);
+        return listings.push({
+          id: listing.id,
+          data: listing.data(),
+        });
+      });
+
+      // console.log(listings);
+
+      setListings((prevState) => [...prevState, ...listings]);
+      setLoading(false);
+    } catch (err) {
+      console.log(err.message);
+      toast.error("An errror occured, Category not found", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return (
     <div className="category">
       <header>
@@ -101,6 +158,12 @@ function Category() {
           ))}
         </ul>
       </main>
+      <br />
+      {lastFetched && (
+        <p className="loadMore" onClick={fetchLastListing}>
+          Load More
+        </p>
+      )}
     </div>
   );
 }

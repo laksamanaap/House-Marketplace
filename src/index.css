@@ -370,6 +370,7 @@ button {
 
 img.swiperSlideDiv--explore {
   border-radius: 1.5rem !important;
+  height: 220px;
 }
 
 .swiper-button-prev,
