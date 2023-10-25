@@ -85,7 +85,7 @@ function Category() {
         listingsRef,
         where("type", "==", params.categoryName),
         orderBy("timestamp", "desc"),
-        limit(3),
+        limit(5),
         startAfter(lastFetched)
       );
 
@@ -110,7 +110,9 @@ function Category() {
 
       // console.log(listings);
 
+      // Set the listings to the newest according the 'Load more' pagination
       setListings((prevState) => [...prevState, ...listings]);
+      console.log(listings);
       setLoading(false);
     } catch (err) {
       console.log(err.message);
