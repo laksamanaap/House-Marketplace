@@ -1,15 +1,14 @@
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore from "swiper";
+import { EffectFade, Navigation, Pagination } from "swiper/modules";
 SwiperCore.use([Navigation, Pagination, EffectFade]);
 import "swiper/css";
 import "swiper/swiper-bundle.css";
-
-import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase.config";
-import SwiperCore from "swiper";
-import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import Spinner from "../components/Spinner";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 function Slider() {
   const [loading, setIsLoading] = useState(true);
