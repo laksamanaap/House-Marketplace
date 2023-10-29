@@ -62,8 +62,15 @@ function EditListings() {
   // Handle mounted mount in console.log
   const isMounted = useRef(true);
 
-  // Get listing
+  // Redirect if user not logged in
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You can not edit that listing");
+      navigate("/");
+    }
+  });
 
+  // Get listing
   useEffect(() => {
     setLoading(true);
     const fetchListing = async () => {
@@ -219,7 +226,10 @@ function EditListings() {
     delete formDataCopy.address;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
 
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    // const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    // Update Data
+    const docRef = doc(db, "listings", params.listingId);
+    await updateDoc(docRef, formDataCopy);
 
     // console.log(storeImage(images[0]));
     setLoading(false);
