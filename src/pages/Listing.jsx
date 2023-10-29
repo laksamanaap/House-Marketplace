@@ -1,10 +1,11 @@
 import React from "react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-SwiperCore.use([Navigation, Pagination, EffectFade]);
 import "swiper/css";
 import "swiper/swiper-bundle.css";
+
 import BlurPlaceholderImage from "../assets/jpg/placeholder.png";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -14,6 +15,8 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
+
+SwiperCore.use([Navigation, Pagination, EffectFade]);
 
 function Listing() {
   const [listing, setListing] = useState(null);
