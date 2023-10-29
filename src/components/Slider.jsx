@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
-SwiperCore.use([Navigation, Pagination, EffectFade]);
 import "swiper/css";
 import "swiper/swiper-bundle.css";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
+
+SwiperCore.use([Navigation, Pagination, EffectFade]);
 
 function Slider() {
   const [loading, setIsLoading] = useState(true);
