@@ -109,7 +109,7 @@ function EditListings() {
 
   const onSubmitData = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
 
     setLoading(true);
 

@@ -33,7 +33,7 @@ function OAuth() {
       }
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       toast.error("Error signing in with Google!", {
         position: "top-center",
         autoClose: 4000,

@@ -72,7 +72,7 @@ function CreateListings() {
 
   const onSubmitData = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
 
     setLoading(true);
 
@@ -123,7 +123,7 @@ function CreateListings() {
       getlocation.lat = latitude;
       getlocation.lng = longitude;
       location = address;
-      console.log(getlocation, location);
+      // console.log(getlocation, location);
     }
 
     // Store Image to firebase storage

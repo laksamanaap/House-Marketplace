@@ -53,7 +53,7 @@ function Offers() {
         setListings(listings);
         setLoading(false);
       } catch (err) {
-        console.log(err.message);
+        // console.log(err.message);
         toast.error("An errror occured, Offers not found", {
           position: "top-center",
           autoClose: 4000,
@@ -93,7 +93,7 @@ function Offers() {
       const listings = [];
 
       querySnap.forEach((listing) => {
-        console.log(listing.data());
+        // console.log(listing.data());
         //   console.log(listing);
         return listings.push({
           id: listing.id,
@@ -105,10 +105,10 @@ function Offers() {
 
       // Set the listings to the newest according the 'Load more' pagination
       setListings((prevState) => [...prevState, ...listings]);
-      console.log(listings);
+      // console.log(listings);
       setLoading(false);
     } catch (err) {
-      console.log(err.message);
+      // console.log(err.message);
       toast.error("An errror occured, Category not found", {
         position: "top-center",
         autoClose: 4000,

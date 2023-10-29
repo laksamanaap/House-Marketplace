@@ -70,7 +70,7 @@ function Profile() {
         // console.log(listings);
         setListings(listings);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         toast.error("Could not fetch listings", {
           position: "top-center",
           autoClose: 4000,
@@ -100,7 +100,7 @@ function Profile() {
         name,
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error("Error Updating data!", {
         position: "top-center",
         autoClose: 4000,
@@ -144,7 +144,7 @@ function Profile() {
         });
         navigate("/");
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         toast.error("Error deleting listings!", {
           position: "top-center",
           autoClose: 4000,

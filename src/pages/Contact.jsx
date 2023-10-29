@@ -37,7 +37,7 @@ function Contact() {
     fetchUser();
   }, [params.landlordId]);
 
-  console.log(landlord);
+  // console.log(landlord);
 
   return (
     <div className="pageContainer">

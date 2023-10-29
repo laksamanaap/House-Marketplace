@@ -39,12 +39,12 @@ function SignUp() {
         password
       );
 
-      console.log(userCredential);
+      // console.log(userCredential);
       if (userCredential.user) {
         navigate("/");
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error("Try to check your email or password!", {
         position: "top-center",
         autoClose: 4000,
